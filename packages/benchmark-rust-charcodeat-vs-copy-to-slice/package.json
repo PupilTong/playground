@@ -1,0 +1,17 @@
+{
+  "name": "benchmark-rust-charcodeat-vs-copy-to-slice",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "bench": "node benchmark.js",
+    "build": "wasm-pack build --target nodejs --out-dir dist --out-name index"
+  },
+  "dependencies": {
+    "benchmark": "^2.1.4"
+  }
+}

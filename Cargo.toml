@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+
+members = ["packages/benchmark-rust-charcodeat-vs-copy-to-slice"]
+
+[profile.release]
+codegen-units = 1
+# debug = true
+lto = true
