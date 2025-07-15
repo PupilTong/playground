@@ -1,2 +1,5 @@
 # playground
-for instant prototype
+
+My personal playground for try some idea.
+
+
