@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>3D Dice</title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="default" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="portrait" name="screen-orientation">
+    <meta
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
+      name="viewport"
+    >
+    <meta content="portrait" name="x5-orientation" />
+
+    <link rel="canonical" href="https://codepen.io/SteveJRobertson/pen/zxEwrK">
+
+    <style>
+    .dice {
+      --size: 200px;
+      --font-size: 20px;
+      --dice-bg: transparent;
+      --dice-border-width: 0px;
+      --dice-border-color: transparent;
+      color: #fff;
+      display: flex;
+      height: var(--size);
+      width: var(--size);
+      font-size: var(--font-size);
+      transform: rotateY(359deg);
+    }
+
+    .dice div {
+      display: flex;
+    }
+
+    .ani-transform {
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+    .triangle {
+      position: absolute;
+      width: var(--size);
+      /* Height is calculated to maintain the aspect ratio of an equilateral triangle */
+      height: calc(tan(60deg) * var(--size) / 2);
+      background: var(--bg-color);
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    }
+
+    .dice-8 {
+      --common-angle: calc(acos(pow(6, 0.5) / 3));
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dice .face {
+      counter-increment: dice-count 1;
+      /* the transform-origin is set as the geometry center of an equilateral triangle */
+      transform-origin: calc(var(--size) / 2) top 0;
+      background-color: var(--dice-border-color);
+    }
+
+    .dice .face::before {
+      content: counter(dice-count);
+      position: relative;
+      height: calc(100% - var(--dice-border-width));
+      width: calc(100% - var(--dice-border-width));
+      background: var(--dice-bg);
+      clip-path: inherit;
+      vertical-align: middle;
+      text-align: center;
+      line-height: calc(tan(60deg) * var(--size) / 2);
+    }
+
+    .dice-8 .face:nth-child(1) {
+      transform: rotateX(var(--common-angle));
+    }
+
+    .dice-8 .face:nth-child(2) {
+      transform: rotateZ(var(--common-angle)) rotateY(-90deg);
+    }
+
+    .dice-8 .face:nth-child(3) {
+      transform: rotateX(calc(-1 * var(--common-angle))) rotateY(180deg);
+    }
+
+    .dice-8 .face:nth-child(4) {
+      transform: rotateZ(calc(-1 * var(--common-angle))) rotateY(90deg);
+    }
+
+    .dice-8 .dice-half {
+      transform-style: preserve-3d;
+      width: var(--size);
+      /* Height is calculated to maintain the aspect ratio of an equilateral triangle */
+      height: calc(tan(60deg) * var(--size) / 2 * cos(var(--common-angle)));
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .dice-8 .dice-up {
+      counter-reset: dice-count;
+    }
+
+    .dice-8 .dice-down {
+      counter-reset: dice-count 4;
+      transform-origin: center;
+      transform: rotateX(180deg);
+    }
+    </style>
+  </head>
+
+  <body style="height: 100vh; width: 100vw; margin: 0; display: flex">
+    <div style="margin: auto">
+      <div
+        class="dice dice-8 ani-transform"
+        style="--dice-border-width: 2px; --dice-border-color: pink; --dice-bg: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%)"
+      >
+        <div class="dice-half dice-up">
+          <div class="triangle face"></div>
+          <div class="triangle face"></div>
+          <div class="triangle face"></div>
+          <div class="triangle face"></div>
+        </div>
+        <div class="dice-half dice-down">
+          <div class="triangle face"></div>
+          <div class="triangle face"></div>
+          <div class="triangle face"></div>
+          <div class="triangle face"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
